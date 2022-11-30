@@ -5,6 +5,12 @@ const Wallets = React.lazy(() => import('./views/bingo/Wallets'))
 const Wallets_test = React.lazy(() => import('./views/bingo/Wallets_test'))
 const Survey = React.lazy(() => import('./views/bingo/Survey'))
 const Play = React.lazy(() => import('./views/bingo/Play'))
+
+const Pending = React.lazy(() => import('./views/bingo/Pending'))
+const Inprogress = React.lazy(() => import('./views/bingo/Inprogress'))
+const Completed = React.lazy(() => import('./views/bingo/Completed'))
+const Total = React.lazy(() => import('./views/bingo/Total'))
+
 const Lottery = React.lazy(() => import('./views/bingo/Lottery'))
 const Transactions = React.lazy(() => import('./views/bingo/Transactions'))
 const PaidFreeCoins = React.lazy(() => import('./views/bingo/PaidFreeCoins'))
@@ -70,6 +76,12 @@ const routes = [
   { path: '/admin/wallets', name: 'Wallets', component: Wallets },
   { path: '/admin/survey', name: 'Survey', component: Survey },
   { path: '/admin/play', name: 'Play', component: Play },
+
+  { path: '/admin/pending', name: 'Play', component: Pending },
+  { path: '/admin/inprogress', name: 'Play', component: Inprogress },
+  { path: '/admin/completed', name: 'Play', component: Completed },
+  { path: '/admin/total', name: 'Play', component: Total },
+
   { path: '/admin/lottery', name: 'Lottery', component: Lottery },
   { path: '/admin/transactions', name: 'Transactions', component: Transactions },
   { path: '/admin/transaction_detail', name: 'TransactionDetail', component: TransactionDetail },
