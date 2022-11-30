@@ -26,7 +26,7 @@ const AppSidebar = () => {
             <CSidebarBrand className="d-none d-md-flex" to="/">
                 {/* <CIcon className="sidebar-brand-full" icon={logoNegative} height={35} />
                 <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} /> */}
-                <img className="m-2" src="./assets/bingo_logo.png" alt="logo" width="220" height="80" />
+                <img className="m-3" src="./assets/logo-admin.png" alt="logo"  />
             </CSidebarBrand>
             <CSidebarNav className="my_csidebarnav">
                 <SimpleBar>
