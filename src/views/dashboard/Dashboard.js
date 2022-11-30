@@ -188,9 +188,9 @@ const Dashboard = () => {
                     <CRow>
                         <CCol sm={5}>
                             <h4 id="traffic" className="card-title mb-0">
-                                New Wallets Count
+                                Pending
                             </h4>
-                            <div className="small text-medium-emphasis"> 2021</div>
+                            <div className="small text-medium-emphasis"> 2022</div>
                         </CCol>
                         <CCol sm={7} className="d-none d-md-block">
                             {/* <CButton color="primary" className="float-end">
@@ -320,9 +320,9 @@ const Dashboard = () => {
                     <CRow>
                         <CCol sm={5}>
                             <h4 id="traffic" className="card-title mb-0">
-                                Paid Free Coins Amount
+                                In Progress
                             </h4>
-                            <div className="small text-medium-emphasis">2021</div>
+                            <div className="small text-medium-emphasis">2022</div>
                         </CCol>
                         <CCol sm={7} className="d-none d-md-block">
                             {/* <CButton color="primary" className="float-end">
@@ -452,9 +452,9 @@ const Dashboard = () => {
                     <CRow>
                         <CCol sm={5}>
                             <h4 id="traffic" className="card-title mb-0">
-                                Staked Bingo Amount / Interesting Amount
+                                Completed
                             </h4>
-                            <div className="small text-medium-emphasis"> 2021</div>
+                            <div className="small text-medium-emphasis"> 2022</div>
                         </CCol>
                         <CCol sm={7} className="d-none d-md-block">
                             {/* <CButton color="primary" className="float-end">
@@ -589,9 +589,9 @@ const Dashboard = () => {
                     <CRow>
                         <CCol sm={5}>
                             <h4 id="traffic" className="card-title mb-0">
-                                Bingo Transactions
+                                Total
                             </h4>
-                            <div className="small text-medium-emphasis"> 2021</div>
+                            <div className="small text-medium-emphasis"> 2022</div>
                         </CCol>
                         <CCol sm={7} className="d-none d-md-block">
                             {/* <CButton color="primary" className="float-end">

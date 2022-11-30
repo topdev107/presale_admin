@@ -6,10 +6,10 @@ const AppFooter = () => {
     <CFooter>
       
       <div className="ms-auto">
-        <a href="https://134.209.22.166" target="_blank" rel="noopener noreferrer">
-          BINGO
+        <a href="https://flash-launch.com" target="_blank" rel="noopener noreferrer">
+          Flash
         </a>
-        <span className="ms-1">&copy; 2021 creativeLabs.</span>
+        <span className="ms-1">&copy; 2022 Flash Technologies.</span>
       </div>
     </CFooter>
   )
