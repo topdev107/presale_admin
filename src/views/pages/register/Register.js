@@ -51,7 +51,7 @@ const Register = () => {
                         if (response.status == 200) {
                             let token = response.data.user.token;      
                             localStorage.setItem("bingo_user", JSON.stringify(response.data.user));
-                            window.location='#/admin/dashboard'                      
+                            window.location='#/admin/pending'                      
                         } else {
                             let message = response.data.message;
                             Swal.fire({

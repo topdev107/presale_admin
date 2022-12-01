@@ -10,7 +10,7 @@ import {
     cifFr,
     cifIn,
     cifPl,
-    cifUs, cilGamepad, cilPeople
+    cifUs, cilGamepad, cilPeople, cilStar
 } from '@coreui/icons';
 
 import CIcon from '@coreui/icons-react'
@@ -31,7 +31,7 @@ import {
     CTableRow
 } from '@coreui/react';
 import axios from "axios";
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import avatar1 from 'src/assets/images/avatars/g1.jpg';
 import avatar2 from 'src/assets/images/avatars/g2.jpg';
 import avatar3 from 'src/assets/images/avatars/g3.jpg';
@@ -49,28 +49,36 @@ const tableExample = [
     }
 ]
 
+//const tokens = [];
+
+
 
 const Pending = () => {
 
     const fetchData = useCallback(async () => {
         axios({
             method: 'get',
-            url: "http://localhost:5000/api/v1/admin/games",
+            url: "https://presale-backend.vercel.app/presale/launchpad/pendings?chainId=97",
         })
             .then((res) => {
-                if (res.data.status == "success") {
-                    var rs = [];
-                    var games = res.data.data;
-                    games.forEach(element => {
-                        rs.push(
-                            {
-                                id: element._id,
-                                title: element.title,
-                                url: element.url,
-                                created_at: element.published_date
-                            }
-                        )
-                    });
+                console.log('res: ', res);
+                if (res.status == 200) {
+                    //var rs = [];
+                    setTokens(res.data);
+                    // var tks = res.data;                    
+                    // tks.forEach(element => {
+                    //     // rs.push(
+                    //     //     {
+                    //     //         id: element._id,
+                    //     //         title: element.title,
+                    //     //         url: element.url,
+                    //     //         created_at: element.published_date
+                    //     //     }
+                    //     // )
+                    //     tokens.push(element);
+                    // });
+                    console.log('tokens: ', tokens);
+                    //console.log("tokens['x']: ", tokens[0].logoUrl);
                 } else {
                     Swal.fire({
                         title: "Play",
@@ -87,6 +95,8 @@ const Pending = () => {
             })
     });
 
+    const [tokens, setTokens] = useState([]);
+
     const handleClick = () => {
         Swal.fire({
             title: "Add Game",
@@ -96,6 +106,12 @@ const Pending = () => {
                 //Swal.fire(`You typed: ${value}`);
             })
     }
+
+    useEffect(async () => {
+        await fetchData();
+        
+        //console.log('logoUrl: ', tokens[0].logoUrl)
+    }, [])
 
     return (
         <CRow>
@@ -110,33 +126,34 @@ const Pending = () => {
                         <CTable align="middle" className="mb-0 border" hover responsive>
                             <CTableHead color="light">
                                 <CTableRow>
-                                    <CTableHeaderCell>
-                                        <CIcon icon={cilGamepad} />
+                                    {/* <CTableHeaderCell>
+                                        <CIcon icon={cilStar} />
                                     </CTableHeaderCell>
                                     <CTableHeaderCell>Title</CTableHeaderCell>
-                                    <CTableHeaderCell width="300">Activity</CTableHeaderCell>
+                                    <CTableHeaderCell width="300">Activity</CTableHeaderCell> */}
+                                    <CTableHeaderCell>Pending LaunchPads</CTableHeaderCell>
                                 </CTableRow>
                             </CTableHead>
                         </CTable>
                         <div className="overflow-scrollable">
                             <CTable align="middle" className="mb-0 border" hover responsive>
                                 <CTableBody>
-                                    {tableExample.map((item, index) => (
+                                    {tokens.map((item, index) => (
                                         <CTableRow v-for="item in tableItems" key={index}>
-                                            <CTableDataCell>
-                                                {/* <CAvatar size="md" src={item.avatar.src} status={item.avatar.status} /> */}
-                                                <CImage rounded thumbnail width={100} height={100} src={item.avatar} />
+                                            <CTableDataCell>                                                
+                                                {/* <CImage rounded thumbnail width={100} height={100} src={item.logoUrl} /> */}
+                                                <img width={50} height={50} src={item.logoURL}/>                                                
                                             </CTableDataCell>
                                             <CTableDataCell>
-                                                <div><h3>{item.title}</h3></div>
-                                                <div>{item.desc}</div>
+                                                <div><h3>{item.token_name}</h3>{item.token_symbol}</div>
+                                                <div>{item.token_symbol}</div>
                                             </CTableDataCell>
 
                                             <CTableDataCell width="300">
                                                 <div className="d-grid gap-1 d-md-flex justify-content-md-start">
                                                     <CButton color="success" variant="ghost">Detail</CButton>
-                                                    <CButton color="success" variant="ghost">Edit</CButton>
-                                                    <CButton color="success" variant="ghost">On</CButton>
+                                                    {/* <CButton color="success" variant="ghost">Edit</CButton> */}
+                                                    <CButton color="success" variant="ghost">Allow</CButton>
                                                     <CButton color="danger" variant="ghost">Delete</CButton>
                                                 </div>
                                             </CTableDataCell>
