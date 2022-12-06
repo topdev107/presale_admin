@@ -151,7 +151,7 @@ const Pending = () => {
 
                                             <CTableDataCell width="300">
                                                 <div className="d-grid gap-1 d-md-flex justify-content-md-start">
-                                                    <CButton color="success" variant="ghost">Detail</CButton>
+                                                    {/* <CButton color="success" variant="ghost">Detail</CButton> */}
                                                     {/* <CButton color="success" variant="ghost">Edit</CButton> */}
                                                     <CButton color="success" variant="ghost">Allow</CButton>
                                                     <CButton color="danger" variant="ghost">Delete</CButton>
