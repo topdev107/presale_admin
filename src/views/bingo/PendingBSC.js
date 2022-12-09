@@ -88,6 +88,115 @@ const PendingBSC = () => {
         }
     )
 
+    const handleAllow = useCallback(async (id) => {
+        Swal.fire({
+            title: "Confirm",
+            type: "warning",
+            text: 'Are you sure publish this launch pad?',
+            showConfirmButton: true,
+            showCancelButton: true
+        })
+            .then((result) => {
+                console.log('result: ', result);
+                if (result['isConfirmed']) {
+                    axios.put("https://presale-backend.vercel.app/presale/launchpad/" + id + "?chainId=56", 'verified=true')
+                        .then((res) => {
+                            console.log('res: ', res);
+                            if (res.status == 200) {
+                                Swal.fire({
+                                    title: "Success",
+                                    text: "LaunchPad is published",
+                                });
+
+                                axios({
+                                    method: 'get',
+                                    url: "https://presale-backend.vercel.app/presale/launchpad/pendings?chainId=56",
+                                })
+                                    .then((res) => {
+                                        console.log('res: ', res);
+                                        if (res.status == 200) {
+                                            setTokens(res.data);
+                                            console.log('tokens: ', tokens);
+                                        } else {
+                                            Swal.fire({
+                                                title: "Network Error",
+                                                text: JSON.stringify(res.data),
+                                            });
+                                        }
+                                    })
+                            } else {
+                                Swal.fire({
+                                    title: "Network Error",
+                                    text: JSON.stringify(res.data),
+                                });
+                            }
+                        })
+                        .catch((err) => {
+                            Swal.fire({
+                                title: "Warning",
+                                type: "warning",
+                                text: err
+                            });
+                        })
+                }
+            })
+
+    });
+
+    const handleDelete = useCallback(async (id) => {
+        Swal.fire({
+            title: "Warning",
+            type: "warning",
+            text: 'Are you sure delete this launch pad?',
+            showConfirmButton: true,
+            showCancelButton: true
+        })
+            .then((result) => {
+                console.log('result: ', result);
+                if (result['isConfirmed']) {
+                    axios.delete("https://presale-backend.vercel.app/presale/launchpad/" + id + "?chainId=56")
+                        .then((res) => {
+                            console.log('res: ', res);
+                            if (res.status == 200) {
+                                Swal.fire({
+                                    title: "Success",
+                                    text: "LaunchPad is deleted",
+                                });
+
+                                axios({
+                                    method: 'get',
+                                    url: "https://presale-backend.vercel.app/presale/launchpad/pendings?chainId=56",
+                                })
+                                    .then((res) => {
+                                        console.log('res: ', res);
+                                        if (res.status == 200) {
+                                            setTokens(res.data);
+                                            console.log('tokens: ', tokens);
+                                        } else {
+                                            Swal.fire({
+                                                title: "Network Error",
+                                                text: JSON.stringify(res.data),
+                                            });
+                                        }
+                                    })
+                            } else {
+                                Swal.fire({
+                                    title: "Network Error",
+                                    text: JSON.stringify(res.data),
+                                });
+                            }
+                        })
+                        .catch((err) => {
+                            Swal.fire({
+                                title: "Warning",
+                                type: "warning",
+                                text: err
+                            });
+                        })
+                }
+            })
+    });
+
     useEffect(async () => {
         await fetchData();
     }, [])
@@ -128,8 +237,8 @@ const PendingBSC = () => {
                                                 </CTableDataCell>
                                                 <CTableDataCell width="300">
                                                     <div className="d-grid gap-1 d-md-flex justify-content-md-start">
-                                                        <CButton color="success" variant="ghost">Publish</CButton>
-                                                        <CButton color="danger" variant="ghost">Delete</CButton>
+                                                    <CButton color="success" variant="ghost" onClick={() => { handleAllow(item._id) }}>Publish</CButton>
+                                                            <CButton color="danger" variant="ghost" onClick={() => { handleDelete(item._id) }}>Delete</CButton>
                                                     </div>
                                                 </CTableDataCell>
 

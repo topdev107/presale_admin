@@ -75,13 +75,13 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'BSC',
+    name: 'BSC Testnet',
     to: '/admin/bsctest',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Cronos',
+    name: 'Cronos Testnet',
     to: '/admin/cronostest',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
   }
