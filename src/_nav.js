@@ -19,6 +19,7 @@ import {
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 const _nav = [
+  /*
   {
     component: CNavTitle,
     name: 'Dashboard',
@@ -33,9 +34,10 @@ const _nav = [
     //   text: 'NEW',
     // },
   },
+  */
   {
     component: CNavTitle,
-    name: 'Control',
+    name: 'Mainnets',
   },
   // {
   //   component: CNavItem,
@@ -57,26 +59,30 @@ const _nav = [
   // },
   {
     component: CNavItem,
-    name: 'Pending',
-    to: '/admin/pending',
+    name: 'BSC',
+    to: '/admin/bsc',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'In Progress',
-    to: '/admin/inprogress',
+    name: 'Cronos',
+    to: '/admin/cronos',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
   {
+    component: CNavTitle,
+    name: 'Testnets',
+  },
+  {
     component: CNavItem,
-    name: 'Completed',
-    to: '/admin/completed',
+    name: 'BSC',
+    to: '/admin/bsctest',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Total',
-    to: '/admin/total',
+    name: 'Cronos',
+    to: '/admin/cronostest',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
   }
   // {
