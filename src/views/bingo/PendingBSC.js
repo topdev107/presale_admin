@@ -128,7 +128,7 @@ const PendingBSC = () => {
                                                 </CTableDataCell>
                                                 <CTableDataCell width="300">
                                                     <div className="d-grid gap-1 d-md-flex justify-content-md-start">
-                                                        <CButton color="success" variant="ghost">Allow</CButton>
+                                                        <CButton color="success" variant="ghost">Publish</CButton>
                                                         <CButton color="danger" variant="ghost">Delete</CButton>
                                                     </div>
                                                 </CTableDataCell>
