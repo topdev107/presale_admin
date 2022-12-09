@@ -61,13 +61,15 @@ const _nav = [
     component: CNavItem,
     name: 'BSC',
     to: '/admin/bsc',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    //icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    icon: <img src='https://flash-launch.com/logo_BNB.png' width={25} height={25} style={{marginRight: '20px'}}></img>    
   },
   {
     component: CNavItem,
     name: 'Cronos',
     to: '/admin/cronos',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+    //icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+    icon: <img src='https://flash-launch.com/logo_CRON.svg' width={25} height={25} style={{marginRight: '20px'}}></img>
   },
   {
     component: CNavTitle,
@@ -77,13 +79,15 @@ const _nav = [
     component: CNavItem,
     name: 'BSC Testnet',
     to: '/admin/bsctest',
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    //icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    icon: <img src='https://flash-launch.com/logo_BNB.png' width={25} height={25} style={{marginRight: '20px'}}></img>
   },
   {
     component: CNavItem,
     name: 'Cronos Testnet',
     to: '/admin/cronostest',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    //icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    icon: <img src='https://flash-launch.com/logo_CRON.svg' width={25} height={25} style={{marginRight: '20px'}}></img>
   }
   // {
   //   component: CNavTitle,
