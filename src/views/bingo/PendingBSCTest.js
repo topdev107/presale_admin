@@ -245,6 +245,7 @@ const PendingBSCTest = () => {
                                                     </CTableDataCell>
                                                     <CTableDataCell width="300">
                                                         <div className="d-grid gap-1 d-md-flex justify-content-md-start">
+                                                            
                                                             {/* <CButton color="success" variant="ghost" onClick={() => { handleDetail(item._id, item.network) }}>Detail</CButton> */}
                                                             <CButton color="success" variant="ghost" onClick={() => { handleAllow(item._id) }}>Publish</CButton>
                                                             <CButton color="danger" variant="ghost" onClick={() => { handleDelete(item._id) }}>Delete</CButton>
