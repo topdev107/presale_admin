@@ -10,6 +10,7 @@ const PendingBSC = React.lazy(() => import('./views/bingo/PendingBSC'))
 const PendingCronos = React.lazy(() => import('./views/bingo/PendingCronos'))
 const PendingBSCTest = React.lazy(() => import('./views/bingo/PendingBSCTest'))
 const PendingCronosTest = React.lazy(() => import('./views/bingo/PendingCronosTest'))
+const PadDetail = React.lazy(() => import('./views/bingo/PadDetail'))
 
 const Lottery = React.lazy(() => import('./views/bingo/Lottery'))
 const Transactions = React.lazy(() => import('./views/bingo/Transactions'))
@@ -81,6 +82,7 @@ const routes = [
   { path: '/admin/cronos', name: 'cronos', component: PendingCronos },
   { path: '/admin/bsctest', name: 'bsctest', component: PendingBSCTest },
   { path: '/admin/cronostest', name: 'cronostest', component: PendingCronosTest },
+  { path: '/admin/detail', name: 'detail', component: PadDetail },
 
   { path: '/admin/lottery', name: 'Lottery', component: Lottery },
   { path: '/admin/transactions', name: 'Transactions', component: Transactions },

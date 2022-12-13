@@ -32,11 +32,15 @@ import {
 } from '@coreui/react';
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Swal from "sweetalert2";
 
 
 const PendingBSCTest = () => {
+
+    //const history = useHistory();
+    const history = useHistory();
 
     const fetchData = useCallback(async () => {
         axios({
@@ -197,6 +201,10 @@ const PendingBSCTest = () => {
             })
     });
 
+    const handleDetail = useCallback(async (id, network) => {
+        history.push('/admin/detail?id=' + id + '&network=' + network);
+    });
+
     useEffect(async () => {
         await fetchData();
     }, [])
@@ -205,7 +213,7 @@ const PendingBSCTest = () => {
         <CRow>
             <CCol xs={12}>
                 <CCard className="mb-4">
-                    <CCardBody className="t_height_80vh">
+                    <CCardBody className="t_height_95vh">
                         <CTable align="middle" className="mb-0 border" hover responsive>
                             <CTableHead color="light">
                                 <CTableRow>
@@ -237,6 +245,7 @@ const PendingBSCTest = () => {
                                                     </CTableDataCell>
                                                     <CTableDataCell width="300">
                                                         <div className="d-grid gap-1 d-md-flex justify-content-md-start">
+                                                            {/* <CButton color="success" variant="ghost" onClick={() => { handleDetail(item._id, item.network) }}>Detail</CButton> */}
                                                             <CButton color="success" variant="ghost" onClick={() => { handleAllow(item._id) }}>Publish</CButton>
                                                             <CButton color="danger" variant="ghost" onClick={() => { handleDelete(item._id) }}>Delete</CButton>
                                                         </div>
