@@ -215,7 +215,7 @@ const PendingCronos = () => {
                         </CTable>
                         {
                             tokens.length == 0? (
-                                <p>There is no pending launch pads</p>
+                                <p>There is no pendings</p>
                             ) : (
                             <div className="overflow-scrollable">
                                 <CTable align="middle" className="mb-0 border" hover responsive>
