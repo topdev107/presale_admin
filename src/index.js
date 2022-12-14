@@ -8,8 +8,9 @@ import { Provider } from 'react-redux'
 import store from './store'
 
 var BASE_URL_LOCAL = "http://localhost:5000/presale";
-var BASE_URL_SERVER = "http://134.209.22.166:5000/api/v1";
-window.BASE_URL = BASE_URL_LOCAL;
+var BASE_URL_SERVER1 = "http://134.209.22.166:5000/api/v1";
+var BASE_URL_SERVER = "https://presale-backend.vercel.app/presale";
+window.BASE_URL = BASE_URL_SERVER;
 
 ReactDOM.render(
   <Provider store={store}>
