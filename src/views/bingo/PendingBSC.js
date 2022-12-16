@@ -19,6 +19,11 @@ import {
     CAvatar,
     CButton, CCard,
     CCardBody, CCol,
+    CDropdown,
+    CDropdownItem,
+    CDropdownMenu,
+    CDropdownToggle,
+    CFormSelect,
     CImage,
     CLink,
     CProgress,
@@ -32,16 +37,21 @@ import {
 } from '@coreui/react';
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Swal from "sweetalert2";
 
 
 const PendingBSC = () => {
+    const CHAIN_ID = 56;
 
-    const fetchData = useCallback(async () => {
+    //const history = useHistory();
+    const history = useHistory();
+
+    const fetchPendingData = useCallback(async () => {
         axios({
             method: 'get',
-            url: "https://presale-backend.vercel.app/presale/launchpad/pendings?chainId=56",
+            url: "https://presale-backend.vercel.app/presale/launchpad/pendings?chainId="+CHAIN_ID,
         })
             .then((res) => {
                 console.log('res: ', res);
@@ -50,7 +60,33 @@ const PendingBSC = () => {
                     console.log('tokens: ', tokens);
                 } else {
                     Swal.fire({
-                        title: "Play",
+                        title: "Network Error",
+                        text: JSON.stringify(res.data),
+                    });
+                }
+            })
+            .catch((err) => {
+                Swal.fire({
+                    title: "Warning",
+                    type: "warning",
+                    text: err
+                });
+            })
+    });
+
+    const fetchVerifiedData = useCallback(async () => {
+        axios({
+            method: 'get',
+            url: "https://presale-backend.vercel.app/presale/launchpad/all?chainId="+CHAIN_ID,
+        })
+            .then((res) => {
+                console.log('res: ', res);
+                if (res.status == 200) {
+                    setTokens(res.data);
+                    console.log('tokens: ', tokens);
+                } else {
+                    Swal.fire({
+                        title: "Network Error",
                         text: JSON.stringify(res.data),
                     });
                 }
@@ -65,6 +101,7 @@ const PendingBSC = () => {
     });
 
     const [tokens, setTokens] = useState([]);
+    const [verifyStatus, setVerifyStatus] = useState('false');
 
     // const handleClick = () => {
     //     Swal.fire({
@@ -77,12 +114,12 @@ const PendingBSC = () => {
     // }
 
     const handleClick = useCallback(
-        async(network, token_addr) => {
-            const url = 
-                network == 97? 'https://testnet.bscscan.com/address/' + token_addr :
-                network == 56? 'https://bscscan.com/address/' + token_addr :
-                network == 25? 'https://cronoscan.com/address/' + token_addr : 
-                network == 338? 'https://testnet.cronoscan.com/address/' + token_addr : '';
+        async (network, token_addr) => {
+            const url =
+                network == 97 ? 'https://testnet.bscscan.com/address/' + token_addr :
+                    network == 56 ? 'https://bscscan.com/address/' + token_addr :
+                        network == 25 ? 'https://cronoscan.com/address/' + token_addr :
+                            network == 338 ? 'https://testnet.cronoscan.com/address/' + token_addr : '';
 
             window.open(url);
         }
@@ -99,7 +136,7 @@ const PendingBSC = () => {
             .then((result) => {
                 console.log('result: ', result);
                 if (result['isConfirmed']) {
-                    axios.put("https://presale-backend.vercel.app/presale/launchpad/" + id + "?chainId=56", 'verified=true')
+                    axios.put("https://presale-backend.vercel.app/presale/launchpad/" + id + "?chainId="+CHAIN_ID, 'verified=true')
                         .then((res) => {
                             console.log('res: ', res);
                             if (res.status == 200) {
@@ -110,7 +147,7 @@ const PendingBSC = () => {
 
                                 axios({
                                     method: 'get',
-                                    url: "https://presale-backend.vercel.app/presale/launchpad/pendings?chainId=56",
+                                    url: "https://presale-backend.vercel.app/presale/launchpad/pendings?chainId="+CHAIN_ID,
                                 })
                                     .then((res) => {
                                         console.log('res: ', res);
@@ -154,7 +191,7 @@ const PendingBSC = () => {
             .then((result) => {
                 console.log('result: ', result);
                 if (result['isConfirmed']) {
-                    axios.delete("https://presale-backend.vercel.app/presale/launchpad/" + id + "?chainId=56")
+                    axios.delete("https://presale-backend.vercel.app/presale/launchpad/" + id + "?chainId="+CHAIN_ID)
                         .then((res) => {
                             console.log('res: ', res);
                             if (res.status == 200) {
@@ -165,7 +202,7 @@ const PendingBSC = () => {
 
                                 axios({
                                     method: 'get',
-                                    url: "https://presale-backend.vercel.app/presale/launchpad/pendings?chainId=56",
+                                    url: verifyStatus === 'false'? "https://presale-backend.vercel.app/presale/launchpad/pendings?chainId="+CHAIN_ID : "https://presale-backend.vercel.app/presale/launchpad/all?chainId="+CHAIN_ID,
                                 })
                                     .then((res) => {
                                         console.log('res: ', res);
@@ -197,16 +234,88 @@ const PendingBSC = () => {
             })
     });
 
+    const handleDisable = useCallback(async (id) => {
+        Swal.fire({
+            title: "Confirm",
+            type: "warning",
+            text: 'Are you sure disable this launch pad?',
+            showConfirmButton: true,
+            showCancelButton: true
+        })
+            .then((result) => {
+                console.log('result: ', result);
+                if (result['isConfirmed']) {
+                    axios.put("https://presale-backend.vercel.app/presale/launchpad/" + id + "?chainId="+CHAIN_ID, 'verified=false')
+                        .then((res) => {
+                            console.log('res: ', res);
+                            if (res.status == 200) {
+                                Swal.fire({
+                                    title: "Success",
+                                    text: "LaunchPad is disabled",
+                                });
+
+                                axios({
+                                    method: 'get',
+                                    url: "https://presale-backend.vercel.app/presale/launchpad/all?chainId="+CHAIN_ID,
+                                })
+                                    .then((res) => {
+                                        console.log('res: ', res);
+                                        if (res.status == 200) {
+                                            setTokens(res.data);
+                                            console.log('tokens: ', tokens);
+                                        } else {
+                                            Swal.fire({
+                                                title: "Network Error",
+                                                text: JSON.stringify(res.data),
+                                            });
+                                        }
+                                    })
+                            } else {
+                                Swal.fire({
+                                    title: "Network Error",
+                                    text: JSON.stringify(res.data),
+                                });
+                            }
+                        })
+                        .catch((err) => {
+                            Swal.fire({
+                                title: "Warning",
+                                type: "warning",
+                                text: err
+                            });
+                        })
+                }
+            })
+
+    });
+
+    const handleDetail = useCallback(async (id, network) => {
+        history.push('/admin/detail?id=' + id + '&network=' + network);
+    });
+
     useEffect(async () => {
-        await fetchData();
-    }, [])
+        if (verifyStatus === 'false') {
+            await fetchPendingData();
+        } else {
+            await fetchVerifiedData();
+        }
+    }, [verifyStatus])
+
+    const handleChange = (value) => {
+        console.log('value: ', value.target.value);
+        setVerifyStatus(value.target.value);
+    }
 
     return (
         <CRow>
             <CCol xs={12}>
                 <CCard className="mb-4">
-                    <CCardBody className="t_height_80vh">
-                        <CTable align="middle" className="mb-0 border" hover responsive>
+                    <CCardBody className="t_height_95vh">
+                        <CFormSelect aria-label="Verified" onChange={handleChange}>
+                            <option value="false">Pending</option>
+                            <option value="true">Verified</option>
+                        </CFormSelect>
+                        <CTable align="middle" className="mt-3 mb-0 border" hover responsive>
                             <CTableHead color="light">
                                 <CTableRow>
                                     <CTableHeaderCell>Pending LaunchPads</CTableHeaderCell>
@@ -214,39 +323,48 @@ const PendingBSC = () => {
                             </CTableHead>
                         </CTable>
                         {
-                            tokens.length == 0? (
+                            tokens.length == 0 ? (
                                 <p>There is no pendings</p>
                             ) : (
-                            <div className="overflow-scrollable">
-                                <CTable align="middle" className="mb-0 border" hover responsive>
-                                    <CTableBody>
-                                        {tokens.map((item, index) => (
-                                            <CTableRow v-for="item in tableItems" key={index}>
-                                                <CTableDataCell>
-                                                    <div>
-                                                        <img width={50} height={50} src={item.logoURL}/>
-                                                        <h3>{item.token_name}</h3>
-                                                        {item.token_symbol}
-                                                    </div>
-                                                </CTableDataCell>
-                                                <CTableDataCell>
-                                                    <h3>Token Address: </h3>
-                                                    {
-                                                        <CButton color="link" onClick={() => {handleClick(item.network, item.token_addr)}}>{item.token_addr}</CButton>
-                                                    }                                                
-                                                </CTableDataCell>
-                                                <CTableDataCell width="300">
-                                                    <div className="d-grid gap-1 d-md-flex justify-content-md-start">
-                                                    <CButton color="success" variant="ghost" onClick={() => { handleAllow(item._id) }}>Publish</CButton>
-                                                            <CButton color="danger" variant="ghost" onClick={() => { handleDelete(item._id) }}>Delete</CButton>
-                                                    </div>
-                                                </CTableDataCell>
+                                <div className="overflow-scrollable">
+                                    <CTable align="middle" className="mb-0 border" hover responsive>
+                                        <CTableBody>
+                                            {tokens.map((item, index) => (
+                                                <CTableRow v-for="item in tableItems" key={index}>
+                                                    <CTableDataCell>
+                                                        <div>
+                                                            <img width={50} height={50} src={item.logoURL} />
+                                                            <h3>{item.token_name}</h3>
+                                                            {item.token_symbol}
+                                                        </div>
+                                                    </CTableDataCell>
+                                                    <CTableDataCell>
+                                                        <h3>Token Address: </h3>
+                                                        {
+                                                            <CButton color="link" onClick={() => { handleClick(item.network, item.token_addr) }}>{item.token_addr}</CButton>
+                                                        }
+                                                    </CTableDataCell>
+                                                    <CTableDataCell width="300">
+                                                        {
+                                                            verifyStatus === 'false' ? (
+                                                                <div className="d-grid gap-1 d-md-flex justify-content-md-start">
+                                                                    <CButton color="success" variant="ghost" onClick={() => { handleAllow(item._id) }}>Publish</CButton>
+                                                                    <CButton color="danger" variant="ghost" onClick={() => { handleDelete(item._id) }}>Delete</CButton>
+                                                                </div>
+                                                            ) : (
+                                                                <div className="d-grid gap-1 d-md-flex justify-content-md-start">
+                                                                    <CButton color="success" variant="ghost" onClick={() => { handleDisable(item._id) }}>Disable</CButton>
+                                                                    <CButton color="danger" variant="ghost" onClick={() => { handleDelete(item._id) }}>Delete</CButton>
+                                                                </div>
+                                                            )
+                                                        }
+                                                    </CTableDataCell>
 
-                                            </CTableRow>
-                                        ))}
-                                    </CTableBody>
-                                </CTable>
-                            </div>
+                                                </CTableRow>
+                                            ))}
+                                        </CTableBody>
+                                    </CTable>
+                                </div>
                             )
                         }
                     </CCardBody>
