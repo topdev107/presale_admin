@@ -11,6 +11,7 @@ const PendingCronos = React.lazy(() => import('./views/bingo/PendingCronos'))
 const PendingBSCTest = React.lazy(() => import('./views/bingo/PendingBSCTest'))
 const PendingCronosTest = React.lazy(() => import('./views/bingo/PendingCronosTest'))
 const PadDetail = React.lazy(() => import('./views/bingo/PadDetail'))
+const FeeControl = React.lazy(() => import('./views/feecontrol/'))
 
 const Lottery = React.lazy(() => import('./views/bingo/Lottery'))
 const Transactions = React.lazy(() => import('./views/bingo/Transactions'))
@@ -20,7 +21,6 @@ const Interesting = React.lazy(() => import('./views/bingo/Interesting'))
 const TransactionDetail = React.lazy(() => import('./views/bingo/TransactionDetail'))
 const AddSurvey = React.lazy(() => import('./views/bingo/AddSurvey'))
 const EditSurvey = React.lazy(() => import('./views/bingo/EditSurvey'))
-
 
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -82,6 +82,7 @@ const routes = [
   { path: '/admin/cronos', name: 'cronos', component: PendingCronos },
   { path: '/admin/bsctest', name: 'bsctest', component: PendingBSCTest },
   { path: '/admin/cronostest', name: 'cronostest', component: PendingCronosTest },
+  { path: '/admin/feecontrol', name: 'controlfee', component: FeeControl },
   { path: '/admin/detail', name: 'detail', component: PadDetail },
 
   { path: '/admin/lottery', name: 'Lottery', component: Lottery },
@@ -92,7 +93,6 @@ const routes = [
   { path: '/admin/interesting', name: 'Interesting', component: Interesting },
   { path: '/admin/add_survey', name: 'AddSurvey', component: AddSurvey },
   { path: '/admin/edit_survey', name: 'EditSurvey', component: EditSurvey },
-
 
   { path: '/base', name: 'Base', component: Cards, exact: true },
   { path: '/base/accordion', name: 'Accordion', component: Accordion },

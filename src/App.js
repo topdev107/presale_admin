@@ -25,7 +25,7 @@ class App extends Component {
     return (
       <HashRouter>
         <React.Suspense fallback={loading}>
-          <Switch>            
+          <Switch>
             <Route exact path="/admin/login" name="Login Page" render={(props) => <Login {...props} />} />
             <Route exact path="/admin/register" name="Register Page" render={(props) => <Register {...props} />} />
             <Route exact path="/admin/forgot_password" name="Forgot Password" render={(props) => <ForgotPassword {...props} />} />
