@@ -81,7 +81,7 @@ const _nav = [
     to: '/admin/bsctest',
     //icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     icon: <img src='https://flash-launch.com/logo_BNB.png' width={25} height={25} style={{marginRight: '20px'}}></img>
-  },
+  },  
   {
     component: CNavItem,
     name: 'Cronos Testnet',
@@ -89,6 +89,7 @@ const _nav = [
     //icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     icon: <img src='https://flash-launch.com/logo_CRON.svg' width={25} height={25} style={{marginRight: '20px'}}></img>
   },
+  /*
   {
     component: CNavTitle,
     name: 'Management'
@@ -99,6 +100,7 @@ const _nav = [
     to: '/admin/feecontrol',
     icon: <img src='settings.png' width={25} height={25} style={{marginRight: '20px'}}></img>
   }
+*/
   // {
   //   component: CNavTitle,
   //   name: 'Data',
